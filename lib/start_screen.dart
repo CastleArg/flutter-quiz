@@ -13,21 +13,23 @@ class StartScreen extends StatelessWidget {
           Image.asset(
             "assets/images/quiz-logo.png",
             width: 300,
+            color: const Color.fromARGB(25, 255, 255, 255),
           ),
           const SizedBox(
-            height: 30,
+            height: 40,
           ),
           const Text(
-            'food',
+            'quiz time',
             style: TextStyle(color: Colors.white, fontSize: 24),
           ),
           const SizedBox(
             height: 30,
           ),
-          OutlinedButton(
+          OutlinedButton.icon(
               style: OutlinedButton.styleFrom(foregroundColor: Colors.white),
               onPressed: () {},
-              child: const Text("click me!!"))
+              label: const Text("click me!!"),
+              icon: const Icon(Icons.arrow_right_alt))
         ],
       ),
     );
