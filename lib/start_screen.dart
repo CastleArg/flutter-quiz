@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class StartScreen extends StatelessWidget {
-  const StartScreen({super.key});
-
+  const StartScreen(void Function() this.handleButtonPress, {super.key});
+  final Function() handleButtonPress;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -27,7 +27,7 @@ class StartScreen extends StatelessWidget {
           ),
           OutlinedButton.icon(
               style: OutlinedButton.styleFrom(foregroundColor: Colors.white),
-              onPressed: () {},
+              onPressed: handleButtonPress,
               label: const Text("click me!!"),
               icon: const Icon(Icons.arrow_right_alt))
         ],
