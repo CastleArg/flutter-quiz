@@ -30,6 +30,9 @@ class _QuestionScreenState extends State<QuestionScreen> {
               textAlign: TextAlign.center,
               style: const TextStyle(color: Colors.white),
             ),
+            const SizedBox(
+              height: 30,
+            ),
             ...currentQuestion.getShuffledAnswers().map((e) {
               return AnswerButton(answerText: e, onTap: () {});
             }).toList(),
