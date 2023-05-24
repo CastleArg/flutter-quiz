@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:quiz/data/questions.dart';
-import 'package:quiz/questions_summary.dart';
+import 'package:quiz/questions_summary/questions_summary.dart';
+
+import 'model/questions_summary.dart';
 
 class ResultsScreen extends StatelessWidget {
-  const ResultsScreen({required this.chosenAnswers, super.key});
+  const ResultsScreen(
+      {required this.chosenAnswers, required this.onRestart, super.key});
   final List<String> chosenAnswers;
-
+  final void Function() onRestart;
   List<QuestionSummary> getSummaryData() {
     final List<QuestionSummary> summary = [];
     for (var i = 0; i < chosenAnswers.length; i++) {
@@ -20,31 +23,33 @@ class ResultsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final summaryData = getSummaryData();
+    final numCorrect = summaryData.where((x) {
+      return x.chosenAnswer == x.correctAnswer;
+    }).length;
     return SizedBox(
-      width: double.infinity,
-      child: Container(
-        margin: const EdgeInsets.all(40),
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Text("you answered x of ${chosenAnswers.length} questions yo"),
-          const SizedBox(
-            height: 30,
-          ),
-          QuestionsSummary(summaryData: getSummaryData()),
-          const SizedBox(
-            height: 30,
-          ),
-          TextButton(onPressed: () {}, child: const Text("hi"))
-        ]),
-      ),
-    );
+        width: double.infinity,
+        child: Container(
+          margin: const EdgeInsets.all(40),
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Text(
+                "you answered $numCorrect of ${chosenAnswers.length} questions yo"),
+            const SizedBox(
+              height: 30,
+            ),
+            QuestionsSummary(summaryData: summaryData),
+            const SizedBox(
+              height: 30,
+            ),
+            TextButton.icon(
+                onPressed: onRestart,
+                style: TextButton.styleFrom(foregroundColor: Colors.white),
+                icon: const Icon(Icons.refresh),
+                label: const Text(
+                  "Restart",
+                  style: TextStyle(color: Colors.white),
+                )),
+          ]),
+        ));
   }
-}
-
-class QuestionSummary {
-  const QuestionSummary(this.questionNumber, this.questionText,
-      this.chosenAnswer, this.correctAnswer);
-  final int questionNumber;
-  final String questionText;
-  final String correctAnswer;
-  final String chosenAnswer;
 }

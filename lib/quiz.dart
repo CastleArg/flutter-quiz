@@ -31,6 +31,7 @@ class _QuizState extends State<Quiz> {
       setState(() {
         activeScreen = ResultsScreen(
           chosenAnswers: selectedAnswers,
+          onRestart: restartQuiz,
         );
       });
     }
@@ -38,6 +39,13 @@ class _QuizState extends State<Quiz> {
 
   void switchScreen() {
     setState(() {
+      activeScreen = QuestionScreen(answerQuestion: chooseAnswer);
+    });
+  }
+
+  void restartQuiz() {
+    setState(() {
+      selectedAnswers = [];
       activeScreen = QuestionScreen(answerQuestion: chooseAnswer);
     });
   }
