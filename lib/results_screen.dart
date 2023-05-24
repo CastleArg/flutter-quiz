@@ -9,7 +9,7 @@ class ResultsScreen extends StatelessWidget {
       {required this.chosenAnswers, required this.onRestart, super.key});
   final List<String> chosenAnswers;
   final void Function() onRestart;
-  List<QuestionSummary> getSummaryData() {
+  List<QuestionSummary> get summaryData {
     final List<QuestionSummary> summary = [];
     for (var i = 0; i < chosenAnswers.length; i++) {
       summary.add(
@@ -23,7 +23,6 @@ class ResultsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final summaryData = getSummaryData();
     final numCorrect = summaryData.where((x) {
       return x.chosenAnswer == x.correctAnswer;
     }).length;
